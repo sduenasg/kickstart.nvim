@@ -44,6 +44,11 @@ P.S. You can delete this when you're done too. It's your config now :)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- relative line numbers
+vim.wo.relativenumber = true
+-- static line numbers
+vim.wo.number = true
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
@@ -74,8 +79,6 @@ require('lazy').setup({
   'tpope/vim-rhubarb',
 
   -- Detect tabstop and shiftwidth automatically
-  'tpope/vim-sleuth',
-
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
   {
@@ -193,8 +196,18 @@ require('lazy').setup({
     -- Theme inspired by Atom
     'navarasu/onedark.nvim',
     priority = 1000,
+--    config = function()
+--      vim.cmd.colorscheme 'onedark'
+--    end,
+  },
+
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
     config = function()
-      vim.cmd.colorscheme 'onedark'
+      vim.cmd[[colorscheme tokyonight-night]]
     end,
   },
 
@@ -254,6 +267,16 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
   {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+      -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+    }
+  },
+  {
     "theprimeagen/harpoon",
     branch = "harpoon2",
     dependencies = { "nvim-lua/plenary.nvim" },
@@ -266,21 +289,10 @@ require('lazy').setup({
       { "<leader>1", function() require("harpoon"):list():select(1) end, desc = "harpoon to file 1", },
       { "<leader>2", function() require("harpoon"):list():select(2) end, desc = "harpoon to file 2", },
       { "<leader>3", function() require("harpoon"):list():select(3) end, desc = "harpoon to file 3", },
-      { "<leader>4", function() require("harpoon"):list():select(4) end, desc = "harpoon to file 4", },
-      { "<leader>5", function() require("harpoon"):list():select(5) end, desc = "harpoon to file 5", },
+--      { "<leader>4", function() require("harpoon"):list():select(4) end, desc = "harpoon to file 4", },
+--      { "<leader>5", function() require("harpoon"):list():select(5) end, desc = "harpoon to file 5", },
     },
- -- neotree
-    {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-      "MunifTanjim/nui.nvim",
-      "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
-    },
-}
-  },
+ },
     -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
